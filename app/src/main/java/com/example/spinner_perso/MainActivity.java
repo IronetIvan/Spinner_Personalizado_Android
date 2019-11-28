@@ -3,7 +3,10 @@ package com.example.spinner_perso;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.spinner_perso.adaptadores.AdaptadorSpinner;
@@ -13,37 +16,54 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Spinner spinnerperson;
-    ArrayList<Marca> listamarcas;
+    Spinner spinner;
+    ArrayList<Marca> listaMarcas;
     AdaptadorSpinner adaptadorSpinner;
+    ImageView imagen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         instancias();
-        rellenarlista();
+        rellenarLista();
+        acciones();
+
     }
 
-    private void rellenarlista() {
-        spinnerperson.setAdapter(adaptadorSpinner);
-        listamarcas.add(new Marca("Ford", R.drawable.ford));
-        listamarcas.add(new Marca("BMW", R.drawable.bmw));
-        listamarcas.add(new Marca("Audi", R.drawable.audi));
-        listamarcas.add(new Marca("Mini", R.drawable.mini));
-        listamarcas.add(new Marca("Mercedes", R.drawable.mercedes));
-        listamarcas.add(new Marca("Toyota", R.drawable.toyota));
-        listamarcas.add(new Marca("Volkswagen", R.drawable.vw));
-        listamarcas.add(new Marca("Nissan", R.drawable.nissan));
-        listamarcas.add(new Marca("Others", R.drawable.car_other));
+    private void acciones() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Marca mActual = (Marca) adaptadorSpinner.getItem(i);
+                imagen.setImageResource(mActual.getLogo());
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+    }
 
+    private void rellenarLista() {
+        spinner.setAdapter(adaptadorSpinner);
+        listaMarcas.add(new Marca("Ford",R.drawable.ford));
+        listaMarcas.add(new Marca("Audi",R.drawable.audi));
+        listaMarcas.add(new Marca("Mercedes",R.drawable.mercedes));
+        listaMarcas.add(new Marca("Nissan",R.drawable.nissan));
+        listaMarcas.add(new Marca("Mini",R.drawable.mini));
+        listaMarcas.add(new Marca("Toyota",R.drawable.toyota));
+        listaMarcas.add(new Marca("VW",R.drawable.vw));
+        listaMarcas.add(new Marca("BMW",R.drawable.bmw));
+        listaMarcas.add(new Marca("Otra",R.drawable.car_other));
+        adaptadorSpinner.notifyDataSetChanged();
     }
 
     private void instancias() {
-        spinnerperson = findViewById(R.id.spinner_personalizado);
-        listamarcas =  new ArrayList();
-        adaptadorSpinner = new AdaptadorSpinner(listamarcas, getApplicationContext());
+        spinner = findViewById(R.id.spinner_personalizado);
+        listaMarcas = new ArrayList();
+        adaptadorSpinner = new AdaptadorSpinner(listaMarcas, getApplicationContext());
+        imagen = findViewById(R.id.imagen_marca);
     }
 }

@@ -5,17 +5,19 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imagen_spinner"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/imagen_spinner"/>
 
     <TextView
-        android:id="@+id/texto_spinner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Marca"
         android:textSize="30sp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:id="@+id/texto_spinner"
+        />
+
 
 </LinearLayout>

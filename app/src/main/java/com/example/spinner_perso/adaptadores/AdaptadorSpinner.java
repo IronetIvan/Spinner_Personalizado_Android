@@ -17,52 +17,51 @@ import java.util.ArrayList;
 public class AdaptadorSpinner extends BaseAdapter {
 
     ArrayList<Marca> listaDatos;
-    Context context;
+    Context c;
 
     public AdaptadorSpinner(ArrayList<Marca> listaDatos, Context c) {
         this.listaDatos = listaDatos;
-        this.context = c;
+        this.c = c;
     }
 
-
-
+    // numero de filas o elementos que tendrá el spinner
+    // del array de elementos (de marcas)
     @Override
-    // Numero de elementos/filas que tendrá del spinner
-    //del Array de elementos (de marcas)
     public int getCount() {
         return listaDatos.size();
     }
 
+    // obtiene el objeto de la posicion correspondiente (i)
+    // lista.get(i)
     @Override
-    //Obtiene el objeto de la posicion correspondiente (position)
-    //lista.get(position)
-    public Object getItem(int position) {
-        return listaDatos.get(position);
+    public Object getItem(int i) {
+        return listaDatos.get(i);
     }
 
+    // obtiene el id del elemento de la posicion corresponidente
+    // lista.get(i).getID();
     @Override
-    //Obtiene el id del elemento de la posicion correspondiente
-    //lista.get(position).getID();
-    public long getItemId(int position) {
-        return position;
+    public long getItemId(int i) {
+        return i;
     }
 
+
+    // renderiza cada una de las fias
+    // traigo el xml creado
     @Override
-    //Renderiza cada una de las filas
-    //Traigo el XML creado
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, ViewGroup viewGroup) {
 
-        view = LayoutInflater.from(context).inflate(R.layout.spinner_personalizado, viewGroup, false);
+        view = LayoutInflater.from(c).inflate(R.layout.spinner_personalizado,
+                viewGroup,false);
 
-        Marca mActual = listaDatos.get(position);
+        Marca mActual = listaDatos.get(i);
+
         TextView nombre = view.findViewById(R.id.texto_spinner);
         ImageView imagen = view.findViewById(R.id.imagen_spinner);
 
         nombre.setText(mActual.getNombre());
         imagen.setImageResource(mActual.getLogo());
 
-        mActual.getLogo();
-        mActual.getNombre();
         return view;
     }
 }
